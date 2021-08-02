@@ -1,0 +1,32 @@
+<html>
+  <head>
+  <script type='text/javascript'>
+    window.onload = function(){
+      times = 10000;
+      function benchmark(times,print){
+        prefix = 'test';
+        begin = Date.now()
+        for(var i=0; i < times; i++){
+         localStorage.setItem([prefix,i].join('|'), 'Foobar');
+        }
+        for(var i=0; i < times;i++){
+          if(print){
+            console.log(localStorage.getItem([prefix,i].join('|')));
+          }else{
+            var value = localStorage.getItem([prefix,i].join('|'));
+            value += 'A';
+          }
+        }
+        end = Date.now();
+        console.log(['Time took: ',end - begin, ' seconds'].join(''));
+      }
+      console.log('Benchmark console.log');
+      benchmark(times,true);
+      console.log('Benchmark appending');
+      benchmark(times,false);
+    };
+  </script>
+  </head>
+  <body>
+    Open the JS console to see the output
+  </body></html>
